@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  web:
+    build: .
+    container_name: autoservice_web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./public:/usr/share/nginx/html
+    restart: always
+    networks:
+      - app-network
+
+  redis:
+    image: redis:alpine
+    container_name: autoservice_cache
+    ports:
+      - "6379:6379"
+    restart: always
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
